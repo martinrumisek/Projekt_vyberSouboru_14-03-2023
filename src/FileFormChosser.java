@@ -7,7 +7,9 @@ public class FileFormChosser extends JFrame {
     private JButton btn;
     private JTextArea textArea;
     private JPanel mainPanel;
-
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem menuItem;
     public FileFormChosser() {
         btn.addActionListener(new ActionListener() {
             @Override
@@ -18,7 +20,7 @@ public class FileFormChosser extends JFrame {
         });
     }
     public void vyberSouboru(){
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(".");
         int result = fileChooser.showOpenDialog(this);
         if (result == fileChooser.APPROVE_OPTION){
             File file = fileChooser.getSelectedFile();
@@ -39,6 +41,13 @@ public class FileFormChosser extends JFrame {
     }
     public static void main(String[] args) {
         FileFormChosser fileForm = new FileFormChosser();
+        JMenuBar menuBar = new JMenuBar();
+        fileForm.setJMenuBar(menuBar);
+        JMenu menu = new JMenu("File");
+        menuBar.add(menu);
+        JMenuItem menuItem = new JMenuItem("Open");
+        menu.add(menuItem);
+        menuItem.addActionListener(e-> fileForm.vyberSouboru());
         fileForm.setContentPane(fileForm.mainPanel);
         fileForm.pack();
         fileForm.setTitle("Výběr souboru");
